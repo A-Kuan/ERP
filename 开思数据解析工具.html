@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #btn{
+            width: 100vw;
+            height: 10vh;
+        }
+        #content{
+            width: 100vw;
+            height: 10vh;
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <textarea type="text" id="input" rows="25" cols="50"></textarea>
+    <br><br>
+    <button id="btn" onclick="show()">转换</button>
+    <br><br>
+    <input type="text" id="content" ></div>
+</body>
+<script>
+    
+    let value = document.getElementById("input");
+    let content = document.getElementById("content");
+    function show() {
+        const val = JSON.parse(value.value);
+        const _val = val.data.productListVO[3].attrs[0].attrShowVOS[3].attrValues;
+        console.log(_val);
+        const valSet = new Set();
+        _val.map(item => {
+            valSet.add(item.attrValue)
+        })
+
+        let htmlText = "";
+        let key = 0;
+        valSet.forEach((index,item) => {
+            var result = item.replace(/\s/g, "");
+            key += 1;
+            key === valSet.size ? htmlText += result : htmlText += result+"/";
+            content.focus()
+        })
+
+        content.value = htmlText;
+
+        const _content = document.querySelector("#content");
+        const _contentVal = _content.value;
+        _content.focus();
+        _content.setSelectionRange(0,_contentVal.length)
+        
+    }
+</script>
+</html>
